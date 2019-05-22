@@ -23,8 +23,8 @@ def convert(inputfile, outputfile, period):
 
 
 if __name__ == '__main__':
-    parser = ArgumentParser(description='Process some integers.')
-    parser.add_argument('-i', type=str, help='input file')
+    parser = ArgumentParser(description='Convert to 8D.')
+    parser.add_argument('-i', type=str, required=True, help='input file')
     parser.add_argument('-o', type=str, default='output.mp3', help='output file (default: output.mp3)')
     parser.add_argument('-period', type=int, default=200, help='panning period (default: 200)')
     args = parser.parse_args()
