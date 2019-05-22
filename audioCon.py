@@ -1,18 +1,23 @@
-import numpy as np
 import sys
+import numpy as np
+from tqdm import tqdm
 from pydub import AudioSegment
 
+if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print("Need 1 argument.")
+        sys.exit(0)
+        
+    audio = AudioSegment.from_file(sys.argv[1], format="mp3")
+    audio = audio + AudioSegment.silent(duration=150)
+    
+    eightD = AudioSegment.silent(duration=100)
+    pan = np.sin(np.linspace(0, 2*np.pi, 101))
 
-class Run:
+    for i, chunk in tqdm(enumerate(audio[::100])):
+        if len(chunk) < 100:
+            continue
+        newChunk = chunk.pan(pan[i%101])
+        eightD = eightD + newChunk
 
-    if __name__ == "__main__":
-        if len(sys.argv) != 2:
-            print("Need 1 argument.")
-        else:
-            audio = AudioSegment.from_file(sys.argv[1], format="mp3")
-            # mono = AudioSegment(audio).set_channels(1)
-            eightD = None
-            for i, chunk in enumerate(audio[::1000]):
-                newChunk = AudioSegment(chunk).pan(np.sin(i))
-                eightD = eightD + newChunk
-            eightD.export(format="mp3")
+    eightD.export('output.mp3', format="mp3")
