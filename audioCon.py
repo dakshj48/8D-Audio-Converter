@@ -1,4 +1,3 @@
-import sys
 import numpy as np
 from tqdm import tqdm
 from mutagen.mp3 import MP3
@@ -8,7 +7,7 @@ from argparse import ArgumentParser
 
 
 def convert(inputfile, outputfile, period):
-    audio = AudioSegment.from_file(inputfile, format="mp3")
+    audio = AudioSegment.from_file(inputfile, format='mp3')
     audio = audio + AudioSegment.silent(duration=150)
     fileinfo = MP3(inputfile, ID3=EasyID3)
 
@@ -22,10 +21,10 @@ def convert(inputfile, outputfile, period):
         newChunk = chunk.pan(pan[i % period])
         eightD = eightD + newChunk
 
-    eightD.export(outputfile, format="mp3", bitrate=str(fileinfo.info.bitrate), tags=tags(fileinfo))
+    eightD.export(outputfile, format='mp3', bitrate=str(fileinfo.info.bitrate), tags=tags(fileinfo))
 
 
-def tags(info: MP3):
+def tags(info):
     ret = dict()
     ret['title'] = info['title'][0]
     ret['album'] = info['album'][0]
@@ -37,7 +36,7 @@ def tags(info: MP3):
 if __name__ == '__main__':
     parser = ArgumentParser(description='Convert to 8D.')
     parser.add_argument('-i', type=str, required=True, help='input file')
-    parser.add_argument('-o', type=str, default=parser.parse_args().i[:-4] + " - 8D.mp3",
+    parser.add_argument('-o', type=str, default=parser.parse_args().i[:-4] + ' - 8D.mp3',
                         help='output file (default: fileName - 8D.mp3)')
     parser.add_argument('-period', type=int, default=200, help='panning period (default: 200)')
     args = parser.parse_args()
