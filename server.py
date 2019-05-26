@@ -13,10 +13,20 @@ def upload_file():
 def uploader():
     if request.method == 'POST':
         f = request.files['file']
+
+        period = request.form['period']
+        if period == "":
+            period = None
+
+        outputname = request.form['outputname']
+        if outputname == "":
+            outputname = f.filename[:-4] + ' - 8D.mp3'
+        if outputname[-4:] != '.mp3':
+            outputname += '.mp3'
+
         f.save(f.filename)
-        convert(f.filename)
-        outputfile = f.filename[:-4] + ' - 8D.mp3'
-        return send_file(outputfile, as_attachment=True)
+        convert(f.filename, outputname, period)
+        return send_file(outputname, as_attachment=True)
 
 
 if __name__ == "__main__":
