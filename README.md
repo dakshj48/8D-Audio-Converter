@@ -1,5 +1,5 @@
 # 8D-Audio-Converter
-Converts mp3 files to 8D audio files
+Converts mp3 files to 8D audio files.
 
 Written in Python 3.
 
