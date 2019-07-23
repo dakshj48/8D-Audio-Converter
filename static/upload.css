@@ -1,0 +1,22 @@
+body {
+    background-color: #0B0C10;
+}
+p {
+    color: #66FCF1;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+#form {
+    padding-top: 0px;
+    padding-left: 10px;
+    background-color: #0B0C10;
+}
+#title {
+    background-color: #1F2833;
+    font-family: "Arial Black", Gadget, sans-serif;
+    color: #66FCF1;
+}
+.box {
+    background-color:#1F2833;
+    color:#66FCF1;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}

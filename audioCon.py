@@ -7,6 +7,10 @@ from argparse import ArgumentParser
 
 
 def convert(inputfile, outputfile, period):
+    if period < 0:
+        period = period*(-1)
+    elif period == 0:
+        period = 200
     audio = AudioSegment.from_file(inputfile, format='mp3')
     audio = audio + AudioSegment.silent(duration=150)
     fileinfo = MP3(inputfile, ID3=EasyID3)
