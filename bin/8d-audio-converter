@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+import webbrowser as wb
+from ..eightd_audioconv.server import main
+
+
+if __name__ == '_main_':
+    main()
+    wb.open_new_tab('http://localhost:5000/')
