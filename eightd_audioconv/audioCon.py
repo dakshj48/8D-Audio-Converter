@@ -30,11 +30,15 @@ def convert(inputfile, outputfile, period):
 
 def tags(info, output):
     ret = dict()
-    # ret['title'] = info['title'][0] + ' - 8D'
     ret['title'] = output[:-4]
-    ret['album'] = info['album'][0]
-    ret['artist'] = info['artist'][0]
-    ret['genre'] = info['genre'][0]
+    if info:
+        # ret['title'] = info['title'][0]
+        try:
+            ret['album'] = info['album'][0]
+            ret['artist'] = info['artist'][0]
+            ret['genre'] = info['genre'][0]
+        finally:
+            return ret
     return ret
 
 
