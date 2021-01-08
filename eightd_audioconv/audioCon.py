@@ -25,12 +25,13 @@ def convert(inputfile, outputfile, period):
         newChunk = chunk.pan(pan[i % period])
         eightD = eightD + newChunk
 
-    eightD.export(outputfile, format='mp3', bitrate=str(fileinfo.info.bitrate), tags=tags(fileinfo))
+    eightD.export(outputfile, format='mp3', bitrate=str(fileinfo.info.bitrate), tags=tags(fileinfo, outputfile))
 
 
-def tags(info):
+def tags(info, output):
     ret = dict()
-    ret['title'] = info['title'][0]
+    # ret['title'] = info['title'][0] + ' - 8D'
+    ret['title'] = output[:-4]
     ret['album'] = info['album'][0]
     ret['artist'] = info['artist'][0]
     ret['genre'] = info['genre'][0]

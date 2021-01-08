@@ -1,5 +1,7 @@
-from flask import Flask, render_template, request, send_file, url_for
+from flask import Flask, render_template, request, send_file, url_for, send_from_directory
 from audioCon import convert
+from pathlib import Path
+import os
 app = Flask(__name__)
 
 
@@ -22,8 +24,25 @@ def uploader():
             outputname += '.mp3'
         f.save(f.filename)
         convert(f.filename, outputname, int(period))
-        return send_file(outputname, as_attachment=True)
+        # outputPath = Path(__file__).parent.parent / 'bin' / outputname
+        outputPath = outputname
+        converted = open(outputPath, 'rb')
+
+        def stream_and_remove():
+            nonlocal converted, outputPath, f
+            yield from converted
+            converted.close()
+            os.remove(outputPath)
+            os.remove(f.filename)
+
+        resp = app.response_class(stream_and_remove(), mimetype='audio/mpeg')
+        resp.headers.set('Content-Disposition', 'attachment', filename=outputname)
+        return resp
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+def run():
+    app.run(debug=True, threaded=True)
+
+
+if __name__ == '__main__':
+    run()
