@@ -1,4 +1,4 @@
-Flask==1.0.3
+Flask==2.3.2
 mutagen==1.42.0
 numpy==1.16.3
 pydub==0.23.1
